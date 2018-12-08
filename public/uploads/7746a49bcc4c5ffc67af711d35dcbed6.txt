@@ -1,0 +1,323 @@
+Seems you did not send the pdf file containing the data. I could not find it.
+7/5/18, 3:59 PM - Chidiebere: The pdf data are for eãćh individual firm.
+7/5/18, 4:01 PM - Chidiebere: I.e each firm has a pdf data. There is one link for all the pdf data
+7/5/18, 4:01 PM - Chidiebere: A faster way will be to get the API if possible for the data source
+7/5/18, 4:02 PM - Chidiebere: If not possible, We find another way to extract the data from thw pdf
+7/5/18, 4:03 PM - Wordpress Plugin: If the API is available, then that's best.
+7/5/18, 4:04 PM - Wordpress Plugin: ok
+7/5/18, 4:04 PM - Chidiebere: We have to find out
+7/5/18, 4:05 PM - Wordpress Plugin: ok
+7/5/18, 4:05 PM - Wordpress Plugin: Do you have the link to the pdf
+7/5/18, 4:05 PM - Chidiebere: The essence of the doc i sent was to get an overview of the work. The full details for the ratios and formula will be provided
+7/5/18, 4:06 PM - Wordpress Plugin: ok.
+7/5/18, 4:07 PM - Wordpress Plugin: Also, if you can provide me with the project aim, that will be helpful also. I have gone through the ppt
+7/5/18, 4:08 PM - Chidiebere: The link to the pdf for a particular firm access bank: http://www.nse.com.ng/Financial_NewsDocs/21936_ACCESS_BANK_PLC._FINANCIAL_STATEMENTS_APRIL_2018.pdf
+7/5/18, 4:09 PM - Chidiebere: The main data source for all: http://www.nse.com.ng/
+7/5/18, 4:10 PM - Chidiebere: Thats the home page
+7/5/18, 4:12 PM - Chidiebere: The essence of the project is to provide an analysis of relevant data( ratios and analysis) for investors.  The data provided is in raw form and require an analysis to make it relevant.
+7/5/18, 4:12 PM - Chidiebere: That is what this platform aims to do
+7/5/18, 4:14 PM - Chidiebere: In addition, it tries to bring together all the relevant info from different sources to an investor.
+7/5/18, 4:15 PM - Wordpress Plugin: ok, got it
+7/5/18, 4:15 PM - Chidiebere: There is a section for investirs preference where a viewer will select his preference based on available option and the particular selection will be displayed
+7/5/18, 4:15 PM - Chidiebere: Ok good
+7/5/18, 5:07 PM - Chidiebere: I did a google search for Nigerian stock exchange API, found some links not sure if it reliable
+7/5/18, 5:07 PM - Chidiebere: @2348059794251 , u can check and see if u can find anything reasonable
+7/5/18, 5:08 PM - Calveen: Yeah. I think we can use the API to pull data from the sites. 
+
+@2348059794251 what do you think?
+7/5/18, 5:09 PM - Chidiebere: I found some things on this link: https://www.nigerianelite.com/help
+7/5/18, 6:31 PM - Wordpress Plugin: Nice. the one I found was broken. I'm still searching tho
+7/5/18, 6:31 PM - Wordpress Plugin: wow. nice. checking it out
+7/5/18, 6:33 PM - Wordpress Plugin: yeah. positive.
+7/5/18, 6:37 PM - Chidiebere: I found where NSE are selling the API: http://marketdataapi.nse.com.ng/Home/Docs
+7/5/18, 6:37 PM - Chidiebere: I think the difference between NSE API which they are selling and others we might find is that NSE API is live data, delayed by 20 mins max
+7/5/18, 6:37 PM - Chidiebere: Unlike some others that are 24 hours delayed
+7/5/18, 6:39 PM - Chidiebere: To clarify some data: There are 2 types of data, one is daily stock prices which are also needed and the other has to do with the ratios which are are in PDF
+7/5/18, 6:41 PM - Chidiebere: The daily stock prices are reported daily and the other ones in PDF are reported monthly/quarterly
+7/6/18, 3:35 PM - Wordpress Plugin: ok
+7/6/18, 3:36 PM - Wordpress Plugin: Yeah, for the max. But the NSE API are more rich in content and the data is more confident.
+7/6/18, 3:37 PM - Wordpress Plugin: I have really dig deep. 
+
+The only promising one which is https://www.nigerianelite.com/help does not work. The endpoint for stock does not return anything. 
+
+I am not too familiar with the stock market, but I have read wide 🙂.
+
+If you know where this stocks information are being displayed on any website, maybe we can scrape it ourselves.
+7/6/18, 3:53 PM - Chidiebere: The only reliable source is nse website
+7/6/18, 3:53 PM - Chidiebere: nse.com.ng
+7/6/18, 3:54 PM - Chidiebere: Maybe we can see how much they are selling the API
+7/6/18, 3:55 PM - Wordpress Plugin: ok
+7/6/18, 3:55 PM - Wordpress Plugin: yeah
+7/9/18, 12:36 PM - Chidiebere: Morning guys
+7/9/18, 12:36 PM - Chidiebere: Whats the update with the API, any development?
+7/9/18, 12:36 PM - Chidiebere: Or are we web scrapping
+7/9/18, 1:03 PM - Wordpress Plugin: I sent them message regarding the API on saturday. I'm still expecting their reply.  Otherwise we'd web scrape
+7/9/18, 1:09 PM - Chidiebere: Ok
+7/10/18, 2:27 AM - Wordpress Plugin: Please @Steve. C 
+check this page if an example of the information for the daily stock is included here:http://www.nse.com.ng/Issuers-section/listed-securities/etp-details?symbol=NEWGOLD
+http://www.nse.com.ng/Issuers-section/listed-securities/company-details?symbol=AFROMEDIA
+7/10/18, 7:52 AM - Chidiebere: The security listed theres is gold
+7/10/18, 7:53 AM - Chidiebere: And not stock
+7/10/18, 7:59 AM - Chidiebere: Yea its showing
+7/10/18, 8:02 AM - Chidiebere: The moving line shows stock prices but the info displayed on the page  shows a particular firm trading gold price
+7/10/18, 9:15 AM - Wordpress Plugin: Yeah, I have the API for the moving line also
+7/10/18, 9:48 AM - Chidiebere: Ok. Good
+7/10/18, 9:51 AM - Chidiebere: How did u  later get  the API
+7/10/18, 9:51 AM - Wordpress Plugin: It's embedded on their website
+7/10/18, 9:52 AM - Chidiebere: Nice job
+7/10/18, 10:04 AM - Wordpress Plugin: thanks
+7/10/18, 2:36 PM - Wordpress Plugin: <Media omitted>
+7/10/18, 2:41 PM - Wordpress Plugin: Sorry
+7/10/18, 2:56 PM - Chidiebere: Ok, thought as much. No wahala
+7/12/18, 12:10 PM - Chidiebere: Any update?
+7/12/18, 1:15 PM - Wordpress Plugin: Yeah, work is in progress. I'm currently working on the user interface
+7/12/18, 1:21 PM - Wordpress Plugin: We will need your ratios soon
+7/12/18, 1:29 PM - Chidiebere: Good
+7/12/18, 1:29 PM - Chidiebere: 👍
+7/14/18, 9:10 PM - Calveen: Hello People, 
+
+
+How it going @2348059794251 ?
+
+Where are we currently?  Any challenges?
+7/15/18, 10:17 PM - Wordpress Plugin: Hello
+7/15/18, 10:17 PM - Wordpress Plugin: Sorry was travelking
+7/15/18, 10:18 PM - Wordpress Plugin: The challenge now is getting the PDF to a cavity format
+7/16/18, 11:48 AM - Calveen: How do we tackle this? 
+
+
+Any options?
+7/16/18, 12:08 PM - Chidiebere: Maybe we can do a little research or check developers forum like github or libraries of prog languages
+7/18/18, 3:12 PM - Chidiebere: Any progress on this?
+7/18/18, 5:48 PM - Wordpress Plugin: I haven't really looked into it
+7/18/18, 5:48 PM - Wordpress Plugin: Started exams on 16th, so I'm kinda tied
+7/18/18, 7:24 PM - Chidiebere: Ok
+7/19/18, 9:27 AM - Calveen: When will you be done with exams?
+7/19/18, 9:54 AM - Wordpress Plugin: next week
+7/19/18, 11:05 AM - Calveen: Alright,  Goodluck in your exams bro. All the best
+7/19/18, 11:05 AM - Calveen: Let's try to round up the project before end of month,  ideally after your exams so we move on to next projects.
+7/19/18, 12:44 PM - Wordpress Plugin: alright
+7/25/18, 2:48 PM - Calveen: Hello @2348059794251 
+
+
+How is your exam going?  Any specific date we could resume work please
+7/25/18, 5:22 PM - Wordpress Plugin: I'm finishing exam this friday
+7/25/18, 5:22 PM - Wordpress Plugin: 20th
+7/25/18, 5:22 PM - Wordpress Plugin: So will be travelling back this Saturday
+7/25/18, 5:22 PM - Wordpress Plugin: 28th
+7/25/18, 5:23 PM - Wordpress Plugin: I will resume by Monday or Tuesday next week
+7/25/18, 5:31 PM - Calveen: Alright,  keep us posted. 
+
+Let's see if we can finish up the project latest first week of August
+7/25/18, 5:31 PM - Calveen: All the best in your exams bro
+7/27/18, 1:00 PM - Chidiebere: @2348059794251 success in your exams.
+Remember work awaits and this time u may need to work twice the rate u were working before to meet up
+7/27/18, 3:49 PM - Wordpress Plugin: Ok
+7/27/18, 3:49 PM - Wordpress Plugin: Thanks all
+8/1/18, 11:29 AM - Calveen: Hello @2348059794251 
+
+
+Happy new month and I hope you are fine.
+
+How was your exams ?
+8/1/18, 11:30 AM - Calveen: I believe you are through with your exams already.
+
+Where are welcome currently in the project ? Can you send us a link to check the progress and when can we officially complete this project?
+8/1/18, 12:59 PM - Wordpress Plugin: hi,  thanks
+8/1/18, 12:59 PM - Wordpress Plugin: Yeah, it's currently on my local
+8/1/18, 1:00 PM - Wordpress Plugin: I can do ngrok if you want
+8/1/18, 1:37 PM - Calveen: Maybe that could work.
+
+I just want us to feedback what has already been done and finalise the project ASAP
+8/1/18, 6:06 PM - Chidiebere: So how do we go about this or is there another way?
+8/1/18, 9:49 PM - Wordpress Plugin: I will upload to a server
+8/2/18, 10:22 AM - Wordpress Plugin: I got it to heroku: https://investng.herokuapp.com/
+8/3/18, 9:13 PM - Calveen: @2348036476757 
+
+Have you seen this yet?
+Am not sure if it is me, but it looks quite empty still in terms of content
+8/4/18, 9:50 AM - Chidiebere: Yes, I didn't  see much done other than a few empty tabs.
+8/4/18, 9:51 AM - Chidiebere: Overall structure is still lacking
+8/5/18, 9:01 AM - Wordpress Plugin: If you are on mobile you won't see much as I'm yet to make the mobile work well
+8/5/18, 9:01 AM - Wordpress Plugin: <Media omitted>
+8/5/18, 9:03 AM - Wordpress Plugin: This is the company page, I don't know if that's how it's meant to be
+8/5/18, 9:03 AM - Wordpress Plugin: things are happening on the back that is not yet visible yet
+8/5/18, 4:56 PM - Chidiebere: Ok
+8/7/18, 10:52 AM - Chidiebere: What else has been done, where are we exactly?
+8/7/18, 10:53 AM - Chidiebere: I was hoping the UI/UX has been done
+8/7/18, 10:53 AM - Chidiebere: Am just concerned that there are a lot of work still to be done on this
+8/7/18, 10:55 AM - Chidiebere: And we have spent a month on this project already
+8/7/18, 11:51 AM - Wordpress Plugin: I think most of the UI is done, although might need more touch,  but will be later.
+8/7/18, 11:53 AM - Wordpress Plugin: Things that has been done. 
+- listing sectors
+- from sectors, users can view cimpany
+- The from the company page,  users can view details of that company
+8/7/18, 11:54 AM - Wordpress Plugin: The other thing that is remains is knowing where each data will be going to in the views which I wanted to ask
+8/7/18, 11:55 AM - Wordpress Plugin: Most especially on the landing page
+8/10/18, 11:23 AM - Chidiebere: For this, its not just only the information from the NSE website, the ratios are to be shown ( for the company).
+8/10/18, 11:25 AM - Chidiebere: For the industry and subsector, there should be a trend analysis of the the stock prices. ( Although this are from the NSE prices, the only thing that will change is just the display
+8/10/18, 11:27 AM - Chidiebere: Can we have a discussion on this. Seems just typing it isn't passing the info across very well
+8/10/18, 11:57 AM - Calveen: This could work better. 
+
+
+@2348059794251 You are in Lagos right? 
+
+We can arrange a phyiscal Meeting to set things clear,  or it could be done virtually via call
+8/10/18, 11:58 AM - Wordpress Plugin: Ok
+8/10/18, 11:59 AM - Wordpress Plugin: Virtually, I'm not in Lagos now
+8/10/18, 12:01 PM - Wordpress Plugin: OK, how can I get the ratios
+8/10/18, 12:18 PM - Chidiebere: I will supply this
+8/11/18, 9:46 AM - Wordpress Plugin: OK, please do
+8/15/18, 6:34 AM - Wordpress Plugin: can I see this example on nse website
+8/15/18, 6:35 AM - Wordpress Plugin: I'm not sure how it looks
+8/16/18, 2:30 PM - Chidiebere: http://www.nse.com.ng/
+8/16/18, 2:31 PM - Chidiebere: Under the market indices, there is a drop-down menu that you can select some selected sectors and their chart displays
+8/16/18, 2:33 PM - Chidiebere: <Media omitted>
+8/16/18, 2:34 PM - Chidiebere: Beside the all share index, there is a drop down list that shows sectors
+8/16/18, 2:34 PM - Wordpress Plugin: ok, I see it
+8/16/18, 2:38 PM - Chidiebere: I will send you a list of all the sectors and subsectors listed on NSE. Another way to show each sector is to add up all the company under each sector and display the average graphically
+8/16/18, 2:40 PM - Wordpress Plugin: This message was deleted
+8/16/18, 2:40 PM - Wordpress Plugin: ok
+8/16/18, 2:42 PM - Wordpress Plugin: "Another way to show each sector is to add up all the company under each sector and display the average graphically" - This will be on the sectors page? that instead of displaying each sectors, I do it on a graph using the average companies...
+8/16/18, 2:44 PM - Chidiebere: Sectors page yes
+8/16/18, 2:44 PM - Wordpress Plugin: ok
+8/16/18, 2:45 PM - Chidiebere: Graphically I mean the way its diplayed here
+8/16/18, 2:46 PM - Wordpress Plugin: ok
+8/16/18, 2:47 PM - Chidiebere: Adding up and average, I mean displaying the stock price of a sector(thats all companies under it) as one graph
+8/16/18, 2:49 PM - Chidiebere: To do this, you have to know the companies under each sector and the doc i will send will guide this
+8/16/18, 2:50 PM - Chidiebere: Please lets have a virtual meeting and explain this very well
+8/16/18, 2:50 PM - Wordpress Plugin: ok, time
+8/16/18, 2:52 PM - Chidiebere: Can u do skype or whatsapp
+8/16/18, 2:56 PM - Wordpress Plugin: whatsapp
+8/16/18, 3:09 PM - Chidiebere: Can we do now
+8/16/18, 3:11 PM - Wordpress Plugin: yes
+8/17/18, 1:31 PM - Chidiebere: @2348059794251, where should I send docs to you
+8/17/18, 5:46 PM - Wordpress Plugin: dongidomed@gmail.com
+8/17/18, 5:46 PM - Wordpress Plugin: Thanks
+8/20/18, 3:18 PM - Chidiebere: @2348059794251, did u see the doc I sent?
+8/20/18, 3:19 PM - Chidiebere: Its basically to show you the sectors
+8/20/18, 3:20 PM - Wordpress Plugin: I saw
+8/20/18, 3:20 PM - Wordpress Plugin: What I took from it is the sub sector
+8/20/18, 3:20 PM - Chidiebere: Am yet to send the send the ratios
+8/20/18, 3:20 PM - Wordpress Plugin: So I made the chart for the sector
+8/20/18, 3:21 PM - Wordpress Plugin: Ok
+8/20/18, 3:21 PM - Chidiebere: Ok good
+8/20/18, 3:30 PM - Chidiebere: Remember to show it in a visually appealing form.
+8/20/18, 4:18 PM - Wordpress Plugin: Ok
+8/24/18, 12:28 PM - Chidiebere: Hello @2348059794251
+8/24/18, 12:28 PM - Chidiebere: Any update
+8/25/18, 12:00 AM - Wordpress Plugin: Yes
+8/25/18, 12:01 AM - Wordpress Plugin: The chart for the sector is up
+8/25/18, 9:21 AM - Chidiebere: Good
+8/28/18, 1:08 PM - Chidiebere: Hello @2348059794251 . I have sent the ratios to your mail
+8/28/18, 1:09 PM - Chidiebere: 2 more outstanding to send to you: sources for economy tab and an example of technical analysis
+8/28/18, 1:10 PM - Chidiebere: I will like to see this if possible
+8/28/18, 1:15 PM - Wordpress Plugin: It's live
+8/28/18, 1:16 PM - Wordpress Plugin: https://investng.herokuapp.com/sectors
+8/28/18, 2:28 PM - Chidiebere: It's okay.
+But it seems not all sectors or subsectors are done yet
+8/28/18, 2:29 PM - Chidiebere: Also I want each company to have a chart in addition to the ratios
+8/28/18, 2:32 PM - Chidiebere: For the ratios, the items in the formula are in pdf format from the individual company's financials or annual report. Available in NSE
+8/28/18, 2:33 PM - Chidiebere: Let me know if further clarification is needed
+9/1/18, 10:52 PM - Chidiebere: Any update?
+9/2/18, 11:53 AM - Wordpress Plugin: Still waking it out
+9/2/18, 11:54 AM - Wordpress Plugin: Not all sectors are included on the website, but I'm still trying to see if there is other way I can go about it
+9/2/18, 11:59 AM - Wordpress Plugin: *wotking
+9/2/18, 5:03 PM - Wordpress Plugin: Yes sorry
+9/2/18, 5:03 PM - Wordpress Plugin: For the ratios will this be from one particular doc
+9/2/18, 5:04 PM - Wordpress Plugin: Or the average of the doc
+9/3/18, 5:18 PM - Chidiebere: Yes from the financial statement or audited account
+9/3/18, 5:24 PM - Chidiebere: For each firm, the financial statement or audited acc (in pdf format) has the information to compute the ratios
+9/3/18, 5:26 PM - Wordpress Plugin: Yes,  I saw it
+9/3/18, 5:26 PM - Wordpress Plugin: The are been added quarterly, or maybe monthly
+9/3/18, 5:27 PM - Wordpress Plugin: So I will use the latest PDF that is been added
+9/3/18, 5:27 PM - Chidiebere: Yea
+9/3/18, 5:29 PM - Wordpress Plugin: Ok
+9/6/18, 5:24 PM - Chidiebere: Hw far, any challenge so far?
+9/7/18, 1:12 PM - Chidiebere: Any update?
+9/7/18, 1:14 PM - Wordpress Plugin: No much update. I had problem with my PC. But before Next Week, I will update you
+9/7/18, 2:03 PM - Chidiebere: Ok
+9/10/18, 9:56 PM - Wordpress Plugin: http://www.nse.com.ng/Financial_NewsDocs/21910_ABBEY_BUILDING_SOCIETY_PLC_FINANCIAL_STATEMENTS_APRIL_2018.pdf
+9/10/18, 10:51 PM - Wordpress Plugin: I have problem locating 'revenue' and most fields to calculate the ratios
+9/10/18, 10:52 PM - Wordpress Plugin: Maybe you could point me to it
+9/11/18, 2:41 PM - Chidiebere: Working on this. Will give u response soon
+9/11/18, 2:42 PM - Wordpress Plugin: Ok
+9/17/18, 10:33 AM - Chidiebere: Hello
+9/17/18, 10:36 AM - Chidiebere: I want to analyze all the ratios for all the firm and give u the result.
+The essence is for you to know and  match the formula to the right variable
+9/17/18, 10:37 AM - Chidiebere: While am working on that, you can be working on other things other than the ratios till am done
+9/22/18, 6:52 PM - Calveen: Hello People,  what's the update? 
+
+Where are we so far?
+9/24/18, 11:46 AM - Chidiebere: Where we are is to analyze to ratios and update accordingly
+9/24/18, 11:54 AM - Chidiebere: Its remaining the technical analysis, economics and investor preference tabs
+9/24/18, 11:55 AM - Chidiebere: Still requires a lot of work though
+9/24/18, 1:42 PM - Wordpress Plugin: Yeah
+10/8/18, 1:21 PM - Chidiebere: Hello @2348059794251
+10/8/18, 1:21 PM - Wordpress Plugin: Hello
+10/8/18, 1:22 PM - Chidiebere: For an example of technical analysis, check out this http://www.trw-stockbrokers.com/charts.aspx
+10/8/18, 1:23 PM - Chidiebere: See if this is something you can embed in the solution
+10/8/18, 1:23 PM - Chidiebere: using our own data of course
+10/8/18, 1:25 PM - Chidiebere: I think they got the solution for this here https://www.advsofteng.com/
+10/8/18, 1:26 PM - Wordpress Plugin: OK, checking
+10/8/18, 1:28 PM - Chidiebere: Please can we have a brief call
+10/8/18, 1:31 PM - Chidiebere: ?
+10/8/18, 1:33 PM - Wordpress Plugin: Oops, can't call now
+10/8/18, 1:34 PM - Chidiebere: What about voice call
+10/8/18, 1:35 PM - Wordpress Plugin: Ok
+10/8/18, 1:37 PM - Wordpress Plugin: My network is very slow
+10/8/18, 1:38 PM - Chidiebere: Ok.
+10/8/18, 1:41 PM - Chidiebere: Wanted to tell you how the ratios analysis are going and to know how best you want to use it
+10/8/18, 1:43 PM - Chidiebere: from the financial statement of one of the company u checked the last time, you discovered that you were finding it difficult locating some of the variables used in the formula.
+10/8/18, 1:45 PM - Chidiebere: The reason is because in the financial statement, some of the variables are not exactly the same name as in the formula. so I have deicided to do the analysis myself and give you the ratios.
+10/8/18, 1:48 PM - Chidiebere: I also want to make sure that for each ratio analysed, you will see the variables and the numbers used for that. where it is a different name than the name in the formula, you will also the name as it is in the formula and in the financial statement.
+10/8/18, 1:50 PM - Chidiebere: This is so you can locate each ratio and the variable and number used and can be able to match the formula to the ratio
+10/8/18, 1:51 PM - Chidiebere: Do you understand what I am staying or is it unclear
+10/8/18, 2:14 PM - Wordpress Plugin: Ok
+10/8/18, 2:14 PM - Wordpress Plugin: Yeah
+10/8/18, 2:14 PM - Wordpress Plugin: You got the data?
+10/8/18, 2:14 PM - Wordpress Plugin: *variables
+10/8/18, 2:16 PM - Wordpress Plugin: Yes
+10/8/18, 2:16 PM - Wordpress Plugin: I do
+10/8/18, 2:31 PM - Chidiebere: Will soon get it. Still working on it
+10/8/18, 2:32 PM - Wordpress Plugin: Alright
+10/8/18, 2:32 PM - Chidiebere: Any further update
+10/9/18, 12:42 PM - Chidiebere: ?
+10/9/18, 12:42 PM - Chidiebere: ?
+10/9/18, 12:44 PM - Wordpress Plugin: No update
+10/9/18, 12:44 PM - Wordpress Plugin: *yet
+10/9/18, 12:45 PM - Chidiebere: Is it this thats delaying
+10/9/18, 12:46 PM - Chidiebere: Can we possibly wrap up this before month end
+10/9/18, 12:46 PM - Chidiebere: The project
+10/9/18, 12:52 PM - Wordpress Plugin: Let's see. Was doing the extraction of the PDF which I think is one that's must needed before I hit the bump.
+10/9/18, 12:53 PM - Wordpress Plugin: Not really, my system got bad. Will continue with cleaning up the front page till when you are dobe
+10/9/18, 1:21 PM - Chidiebere: Wouldn't it be better to get the system in good condition so it stop delaying the work
+10/9/18, 1:28 PM - Wordpress Plugin: It's been on repair for over a month now. They ordered a part which has not delivered yet.
+10/9/18, 1:28 PM - Wordpress Plugin: But I have a one I'm managing now
+10/9/18, 1:28 PM - Chidiebere: Ok
+10/9/18, 3:29 PM - Chidiebere: Lets hope we meet up and complete the work on time
+10/26/18, 3:36 PM - Chidiebere: Hello @2348059794251
+10/26/18, 3:37 PM - Chidiebere: Hope your system is working fine now
+10/26/18, 5:50 PM - Wordpress Plugin: System ain't back yet
+10/26/18, 5:50 PM - Wordpress Plugin: This message was deleted
+11/5/18, 11:23 PM - Chidiebere: Hello
+11/5/18, 11:23 PM - Chidiebere: I have some ratios analysed and other outstanding I want to send
+11/5/18, 11:23 PM - Wordpress Plugin: Ok
+11/5/18, 11:24 PM - Chidiebere: But I will need a talk time to explain them better
+11/5/18, 11:25 PM - Wordpress Plugin: It's on the pdf file right
+11/5/18, 11:27 PM - Chidiebere: Yh its on the pdf but u need to understand the particular info u need from the pdf, thats why the analysis
+11/5/18, 11:27 PM - Chidiebere: The file I will send u its on excel sheet
+11/5/18, 11:27 PM - Wordpress Plugin: Ok
+11/5/18, 11:28 PM - Wordpress Plugin: You can mark them maybe with red. When will you have time to talk
+11/5/18, 11:30 PM - Wordpress Plugin: *or
+11/5/18, 11:30 PM - Wordpress Plugin: *call
+11/5/18, 11:31 PM - Chidiebere: Lets talk tonight
+11/5/18, 11:32 PM - Wordpress Plugin: Currently reading for an exam I have tomorrow
+11/5/18, 11:33 PM - Wordpress Plugin: I think if you have the columns I need for it and then the formula, it will be better. Or we can make tomorrow
+11/5/18, 11:36 PM - Chidiebere: I have the formulas and the columns in the excel. I need to explain how they are arranged and linked with the pdf
+11/5/18, 11:37 PM - Chidiebere: After ur exam tomorrow we discuss
+11/5/18, 11:37 PM - Wordpress Plugin: I see
+11/5/18, 11:37 PM - Wordpress Plugin: Ok
+11/7/18, 12:28 PM - Chidiebere: Are u done with exam
+11/7/18, 12:42 PM - Wordpress Plugin: Not yet, friday this week
+11/10/18, 9:59 AM - Wordpress Plugin: @2348036476757 when will you have time so we can chat

@@ -1,0 +1,5 @@
+ocrmypdf
+# Ghostscript==9.15
+libexempi3>=2.2.0
+qpdf>=8.1.0
+Tesseract>=3.04

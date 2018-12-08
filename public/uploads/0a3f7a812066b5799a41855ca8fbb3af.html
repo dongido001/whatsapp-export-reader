@@ -1,0 +1,1078 @@
+# Build a live customer app with Chatkit, Symfony and Vue.js 
+
+In the part one of this tutorial, we did the necessary configuration for the project. We got Vue to work with Symfony and got our Chatkit API keys. In this part, we will focus on building the chat app.
+
+
+## Creating the client landing page
+
+We need a page where to add our Client chat interface.
+
+Create a new controller named `ChatController.php` in the controllers folder and add the below code to it:
+
+```php
+    <?php
+    
+    namespace App\Controller;
+    
+    use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+    use Symfony\Component\Routing\Annotation\Route;
+    use Symfony\Component\HttpFoundation\Request;
+    use Chatkit\Chatkit;
+    
+    class ChatController extends AbstractController
+    {
+        private $chatkit;
+      
+        public function __construct()
+        {
+            $this->chatkit = new Chatkit([
+                'instance_locator' => getenv('CHATKIT_INSTANCE_LOCATOR'),
+                'key' => getenv('CHATKIT_KEY')
+            ]);
+        }
+    
+        /**
+         * @Route("/")
+         */
+        public function index()
+        {
+            return $this->render('index.html.twig');
+        }
+    }
+```
+
+In the above code, we initialize chatkit using the API details we added to the `.env` file. Then we create a new route using the anotation `@Route("/")` which will render an `index.html.twig` file in the `templates` folder.
+
+Next, create a new file named `base.html.twig` in the templates folder for the base layout and then add the below markup to the file:
+
+```twig
+    <!-- base.html.twig -->
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>{% block title %}Welcome !{% endblock %}</title>
+            <link rel="stylesheet" type="text/css" href="{{ asset('build/app.css') }}">
+            {% block stylesheets %}{% endblock %}
+        </head>
+        <body>
+            {% block body %}{% endblock %}
+            {% block javascripts %}
+               <script src="{{ asset('build/app.js') }}"> </script>
+            {% endblock %}
+        </body>
+    </html>
+```
+
+Next, create another file named `index.html.twig` and then add the below markup to it:
+
+```twig
+    {% extends 'base.html.twig' %}
+    
+    {% block title %} Wellcome !{% endblock %}
+    {% block body %}
+    <!-- Notice the id="app", this is for Vue to know where to watch -->
+    <div class="example-wrapper" id="app">
+        <chat-app> </chat-app>
+        <h1>Hello,</h1>
+            This is a friendly message.
+        <ul>
+            <li>We're building a live customer app with Chatkit, Symfony and Vue.js ✅</li>
+        </ul>
+    </div>
+    {% endblock %}
+```
+
+If you reload the app - `localhost:9030`, you will see a very simple page like below:
+
+
+![=](https://d2mxuefqeaa7sj.cloudfront.net/s_E1EA83E47D77D25194E4FA70951AD10A209607FD9347B4FB8AA49C23F82CF646_1543395247379_Screen+Shot+2018-11-28+at+9.53.39+AM.png)
+
+
+
+## Creating the client chat UI
+
+When users wants to send messages, they need to fill in their `name` and `email` so they can proceed to drop their message.
+
+Create a folder named `client` in the `assets/js/components` folder. Then create two files inside it named `Login.vue` and `Messages.vue`. The `Login.vue` component will render a form for the user to fill their `name` and `email` while the `Messages.vue` component will render a form for adding new message and for listing all the chat message.
+
+### The Login.vue component 
+
+Using the single-compnent approch to create a Vue compoent. We can place our HTML markup in the `<template>` section, our JavaScript code to the `<script>` section while our styles can be in the `<styles>` section.
+
+To create the login component, add the below code to the Login.vue file:
+
+```html
+    <template>
+        <div class="login-container chat-box">
+            <div class="inputs">
+                <input type="text" placeholder="your name" v-model="name">
+                <input type="text" placeholder="your email" v-model="userId">
+            </div>
+            <button type="submit" class="submit" v-on:click="login"> Submit </button>
+        </div>
+    </template>
+    
+    <script>
+        export default {
+            data: function () {
+                return {
+                  name: "",
+                  userId: "",
+                  message: ""
+                }
+            },
+            methods: {}
+        }
+    </script>
+    
+    <style> 
+        .login-container {
+            display: grid; 
+            grid-template-rows: 4fr 1fr;
+            max-height: 320px;
+            min-height: 320px;
+        }
+        input[type="text"] {
+            padding: 10px 8px;
+            margin-top: 10px;
+            border-radius: 2px;
+            border: 1px solid darkgray;
+            font-size: 16px;
+            box-sizing: border-box;
+            display: block;
+        }
+        .inputs {
+            text-align: center;
+            align-self: center;
+            justify-self: center;
+        }
+        .submit {
+            margin-top: 9px;
+            padding: 20px;
+            background: rgb(99, 99, 212);
+            color: white;
+            font-size: 16px;
+        }
+    </style>
+```
+
+### The Messages.vue component
+
+We'll use this component to render messages for the user. 
+
+```html
+    <template> 
+            <div class="chat-box">
+                <div id="messages">
+                    <div
+                        class="chat-message" 
+                        v-for="message in messages" 
+                        v-bind:key="message.id"
+                        v-bind:class="[(message.senderId == userId) ? 'from-client' : 'from-admin']"
+                    >
+                        {{ message.text }}
+                    </div>
+                </div>
+               
+               <div class="input-container">
+                 <input
+                    class="chat-input" 
+                    type="text" 
+                    placeholder="enter message..." 
+                    v-model="message"
+                    v-on:keyup.enter="addMessage"
+                 >
+               </div>
+           </div>
+    </template>
+    
+    <script>
+        export default {
+            props: {
+                messages: Array,
+                userId: String
+            },
+            data() {
+                return {
+                    message: ""
+                }
+            },
+            methods: {
+                addMessage() {
+                    this.$emit('new-message', this.message);
+                    this.message = "";
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .chat-message {
+            width: 70%;
+            margin-bottom: 8px;
+            padding: 5px;
+        }
+        .from-admin {
+            background: rgb(191, 202, 204);
+            color: rgb(39, 37, 37);
+            float: left;
+        }
+        .from-client {
+            background: rgb(48, 13, 79);
+            color: white;
+            float: right;
+        }
+        .input-container {
+            margin: 0px;
+        }
+        .chat-input {
+            width: 99%; 
+            margin-bottom: 0px;
+        }
+        #messages {
+            overflow-y: scroll; 
+            max-height: 320px;
+            min-height: 320px;
+        }
+    </style>
+```
+
+In the template section,
+   - We are using `v-bind:class="[...` to know which class to add to the div for a particular user. If the user that sends the message is same as the message.senderId, we add `rrom-client` class to the message else we add the `from-admin`.
+   - Using the `v-on:keyup.enter="addMessage"`, we call the `addMessage` function to trigger an event we named `new-message` which we'll respond to in the parent component which will to send the message.
+   
+### The Client.vue component
+
+This will be the main component for the client view that will house every other child component, which will constitute the design.
+
+
+```html
+    <template>
+        <div class="chat-container">
+            <div class="head" v-on:click="displayChatArea=!displayChatArea">
+               <div style="justify-self: center;">
+                  Chatx
+               </div>
+            </div>
+             <div v-if="displayChatArea">
+                <login
+                   v-if="!authenticated" 
+                   v-on:authenticated="setAuthenticated" 
+                />
+                <messages 
+                  v-else 
+                  v-on:new-message="addMessage"
+                  :messages="messages"
+                  :userId="userId"
+                />
+            </div>
+        </div>
+    </template>
+    
+    <script>
+        import Messages from './client/Messages.vue';
+        import Login from './client/Login.vue';
+        
+        import { ChatManager, TokenProvider } from '@pusher/chatkit-client';
+        
+        let chatManager = null;
+        let currentUserd = null;
+        
+        export default {
+            components: {
+               Messages,
+               Login
+            },
+            data: function () {
+                return {
+                  authenticated: false,
+                  roomId: "",
+                  messages: [],
+                  userId: ""
+                }
+            },
+            methods: {}
+        }
+    </script>
+    
+    <style> 
+      .chat-container {
+        position: fixed; 
+        left: 0px; 
+        bottom: 0px; 
+        width: 400px; 
+        z-index: 100000; 
+        box-sizing: border-box;
+      }
+      .head {
+        padding: 9px; 
+        display: grid; 
+        background-color: rgb(48, 13, 79); 
+        color: white; 
+        border-top-left-radius: 5px; 
+        border-top-right-radius: 5px;
+      }
+      .chat-box {
+        border-left: 1px solid rgb(48, 13, 79);
+        border-right: 1px solid rgb(48, 13, 79);
+        background: lightgray;
+       }
+    </style>
+```
+
+In the code above,
+ - Using `v-on:click="displayChatArea=!displayChatArea"`, we change the `displayChatArea` state from `false` to `true` and vice versa when the user clicks on the top area of the UI. We will minizise the chat area if `false` and maximise it if `true`. By default, the `displayChatArea` is false so the chat area is minisized when you load the page.
+ 
+Now reload the page again, you should now see the client app
+
+![](https://d2mxuefqeaa7sj.cloudfront.net/s_E1EA83E47D77D25194E4FA70951AD10A209607FD9347B4FB8AA49C23F82CF646_1543402614621_ezgif.com-optimize.gif)
+
+
+
+## Authenticating chatkit users
+
+Import the ChatKit SDK to ChatController.php
+
+```php
+    use Chatkit\Chatkit;
+
+Then inject the SDK to the ChatController class by adding the below code to ChatController.php:
+
+
+    // controllers/ChatController.php
+    
+    [...]
+    
+        private $chatkit;
+        
+        public function __construct()
+        {
+            $this->chatkit = new Chatkit([
+                'instance_locator' => getenv('CHATKIT_INSTANCE_LOCATOR'),
+                'key' => getenv('CHATKIT_KEY')
+            ]);
+        }
+    
+    [...]
+```
+
+In the code above, we created a new instance of Chatkit using the API key we stored in the .env file. So, if we want to reference the ChatKit class in any part of the class, we can simply do `$this->chatkit`.
+
+```php
+    // controllers/ChatController.php
+    
+    [...]  
+    
+        /**
+         * @Route("authenticate_user", methods={"POST"})'
+         */
+        public function authenticate(Request $request)
+        {
+            $email = $request->query->get('user_id');
+            $response = $this->chatkit->authenticate([ 'user_id' => $email ]);
+            return $this->json($response['body']);
+        }
+    
+    [...] 
+```
+
+## Creating a Chatkit user
+
+When a user fills a form, we'll tell Chatkit to create the user.
+
+Create an endpoint from which new users can be created from by adding the below code to `controllers/ChatController.php`:
+
+```php
+    // controllers/ChatController.php
+    
+    [...]
+    
+        /**
+         * @Route("create_user", methods={"POST"})
+         */
+        public function create_user(Request $request) 
+        {
+            $name = $request->request->get('name');
+            $userId = $request->request->get('user_id');
+            
+            try{
+                $response = $this->chatkit->createUser([
+                    'id' => $userId,
+                    'name' => $name
+                ]);
+            } catch( \Exception $e) {
+                if ( $e->getMessage() == 'User with given id already exists' ) {
+                    $response = [
+                        'status' => 200,
+                        'body' => [
+                            'id' => $userId,
+                            'name' => $name,
+                        ]
+                    ];
+                } else {
+                    $response = [
+                        'status' => 400,
+                        'message' => $e->getMessage()
+                    ];
+                }
+            }
+            
+            return $this->json($response);
+        }
+    
+    [...]
+```
+
+In the code above, 
+  - we create a new route named `*create_use` which accepts only POST request.*
+  - Next, we get the `name` and `user_id` from the request then call `$this->chatkit->createUser` using the information to create a user. If the user already exist, we'll return the information.
+  
+
+## Creating a Room
+
+Rooms are where the chat happens. A [room](https://docs.pusher.com/chatkit/core-concepts#rooms) can be either private or public but we'll make use of the public room for our app.
+
+Create an endpoint for creating rooms by adding the below code to `controllers/ChatController.php`: 
+
+```php
+     // controllers/ChatController.php
+     
+    [...]
+    
+        /**
+         * @route("create_room", methods={"POST"})
+         */
+        public function create_room(Request $request) 
+        {
+            $userId = $request->request->get('user_id');
+            $roomName = $request->request->get('room_name');
+            
+            $response = $this->chatkit->createRoom([
+                'creator_id' => $userId,
+                'name' => $userId,
+                'user_ids' => [$userId, 'ham'],
+                // 'private' => true,
+            ]);
+            
+            return $this->json($response);
+        }
+      
+    [...]
+```
+
+## Starting up the user chat
+
+Now let's log the user in. Add the login function to `assets/js/components/Login.vue` in the `methods: {...` block: 
+
+```javascript
+    // assets/js/components/Login.vue
+    
+    [...]
+    
+                login: function() {
+                    fetch('/create_user', {
+                        method: "POST",
+                        body: `name=${this.name}&user_id=${this.userId}`,
+                        headers: {'Content-Type':'application/x-www-form-urlencoded'},
+                    })
+                        .then( (response) => {
+                            return response.json();
+                        })
+                        .then( (response) => {
+                            fetch(`/authenticate_user?user_id=${this.userId}`, {
+                                method: "POST",
+                                headers: {'Content-Type':'application/x-www-form-urlencoded'},
+                            })
+                                .then( (response) => {
+                                    return response.json();
+                                })
+                                .then( (response) => {
+                                    this.$emit("authenticated", this.userId);
+                                });
+                        });
+                }
+    
+    [...]
+```
+
+In the code above,
+  - We call the `*/create_user*` endpoint to create the user once they submit the form.
+  - If the user is created successfully, we then authenticate the user by calling the `/*authenticate_user` endpoint.
+  - Once the user is successfully authenticated, we emit a `authenticated` event using `this.$emit("authenticated*", this.*userId);` which we'll act on withen the parent component(`Client.vue`) and then show the user the chat area.
+  
+Now add the `setAuthenticated` function that will be called when we receive the authenticated event to `Client.vue` in the methods: {} block:
+
+```javascript
+    // assets/js/components/Client.vue
+    
+    [...]
+                setAuthenticated(userId) {
+                
+                    chatManager = new ChatManager({
+                        instanceLocator: 'v1:us1:144f4947-500f-4938-acb4-f4b4b339765e',
+                        userId: userId,
+                        tokenProvider: new TokenProvider({
+                            url: 'http://127.0.0.1:9030/authenticate_user',
+                        })
+                    });
+                    
+                    chatManager.connect()
+                        .then(connectedUser => {
+                            currentUser = connectedUser
+                             
+                            this.userId = userId;
+                            // create a new room
+                            this.createRoom(userId);
+                        })
+                        .catch(err => {
+                            console.log('Error on connection', err)
+                        })
+                        
+                },
+                
+    [...]
+```
+
+In this function, 
+
+- we initialize the [ChatManager](https://docs.pusher.com/chatkit/core-concepts#chat-manager) using our ChatKit instance ID and [token provider](https://docs.pusher.com/chatkit/core-concepts#token-provider). With the ChatManager object, we then connect to ChatKit server. Once we are  successfuly connected to the Chatkit servers we can now access the user object, which is the focal point for further interactions with the Chatkit service.
+
+- All interactions between clients and the Chatkit servers are performed through a user object. The user object is the `*connectedUser*` object we got upon successful connection to the ChatKit service by calling the `chatManager*.*connect()`method. From the connectedUser object, we can now [create a room](https://docs.pusher.com/chatkit/reference/javascript#create-a-room), [fetch messages from a room](https://docs.pusher.com/chatkit/reference/javascript#fetch-messages-from-a-room), [add a user to a room](https://docs.pusher.com/chatkit/reference/javascript#add-a-user-to-a-room), [and many more](https://docs.pusher.com/chatkit/reference/javascript#remove-a-user-from-a-room). We wont be using all of them for this app, but it's worth know that they exist since you might want to extend the app further.
+
+- Next, we make this user object global to the file using `currentUser = *connectedUser`. Now from any part of the code, we can reference this user object as `*currentUser` where we need to access the object.
+
+- Finally, we call the `this.createRoom` function to create a room where the user can chat in. This function is not created yet, we'll do that next.
+
+Next, add a code to create a new user:
+
+```javascript
+    // assets/js/components/Client.vue
+    
+    [...]
+                createRoom(roomName) {
+                    fetch(`/create_room`, {
+                        method: "POST",
+                        body: `room_name=${roomName}&user_id=${this.userId}`,
+                        headers: {'Content-Type':'application/x-www-form-urlencoded'},
+                    })
+                        .then( (response) => {
+                            return response.json();
+                        })
+                        .then( (response) => {
+                            if (response.status == 201) {
+                            
+                                this.roomId = response.body.id;
+                                this.authenticated = true;
+                                
+                                currentUser.joinRoom({ roomId: this.roomId })
+                                    .then(room => {
+                                        console.log(`Joined room with ID: ${room.id}`)
+                                    })
+                                    .catch(err => {
+                                        console.log(`Error joining room : ${err}`)
+                                    })
+                                    
+                                // Subscribe to the room
+                                currentUser.subscribeToRoom({
+                                    roomId: this.roomId,
+                                    hooks: {
+                                        onMessage: message => {
+                                            console.log(`Received new message ${message}`);
+                                            this.messages.push(message);
+                                        }
+                                    },
+                                        messageLimit: 10
+                                    })
+                            }
+                        });
+                },
+    [...]
+```
+
+What the function does, as you might have thought is:
+ - Call the `/create_room` to create a room for the user that is login in.
+ - If the room is successfully created, we add the user to the room using `currentUser.joinRoom(...`.
+ - To be notified of new message in a room, we need to be subscribed to the room. Next, we subsribe the user to the room using `currentUser*.*subscribeToRoom(...`. Once we are subscribed to a room, we have access to a number of [hooks](https://docs.pusher.com/chatkit/reference/javascript#room-subscription-hooks). For our use case, we made use of the `*onMessage*` hook to append new messages to the `messages` state so it is rendered by Vue.
+
+
+Recall from the Messages.vue component, wr have a form where users can send message from. For now they can type and send a message which triggers an event named `new-message`. We alos listed to the event in Client.vue componet which calls the the `*addMessage` function which we are yet to create.
+
+*Now create the* function be adding the below code to `methods: {...}` block in the `Client.vue` file:
+
+```javascript
+    // assets/js/components/Client.vue
+    
+    [...]
+                addMessage(message) {
+                    currentUser.sendMessage({
+                          text: message,
+                           roomId: this.roomId
+                        })
+                        .then(messageId => {
+                           console.log(`Added message to`)
+                        })
+                        .catch(err => {
+                            console.log(`Error adding message to: ${err}`)
+                        })
+                },
+    [...]
+```
+
+Now type a message and send. Our users can send messages but no one to reply to them. Then next thing we'll do is create an admin page where we can respond to them.
+
+
+## Creating the admin chat UI
+
+We need to create a UI for our admins too. 
+
+Create a new controller named `AdminController.php` in the controllers folder to create the admin page:
+
+```php
+    <?php
+    
+    namespace App\Controller;
+    
+    use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+    use Symfony\Component\Routing\Annotation\Route;
+    
+    class AdminController extends AbstractController
+    {
+        /**
+         * @Route("/admin", name="admin")
+         */
+        public function index()
+        {
+            return $this->render('admin.html.twig');
+        }
+    }
+```
+
+Then create the view file. Create a new file named `admin.html` in the templates root folder named `admin.html.twig` and add the below markup to it:
+
+```twig
+    {% extends 'base.html.twig' %}
+    
+    {% block title %}Hello{% endblock %}
+    
+    {% block body %}
+    <div id="app">
+        <admin-chat> </admin-chat>
+    </div>
+    {% endblock %}
+```
+
+For the admin page, we'll create three components:
+
+- `Login.vue`. That will contain the login form (We'll not create an actual login though).
+- `Rooms.vue`. A component that we'll use to list rooms that are available for the admin.
+- `Messages.vue`. We'll use this component to list all messages that was exchanged between the users and admin.
+
+Now, create a new folder named `admin` in the components folder and then create the component files named - `Login.vue`, `Rooms.vue` and `Messages.vue` in it.
+
+### The Login.vue component
+
+The login form does exactly what the Login.vue in the Client view does. We've only changed the form input. we now have input for username and password.
+
+Add the below code to `admin/Login.vue` file:
+
+```html
+    <template>
+        <div class="login-wrapper">
+            <div class="login-form">
+                <input type="text" placeholder="Enter your username" v-model="username">
+                 <input type="text" placeholder="Enter your password" v-model="password">
+                <button type="submit" class="submit" v-on:click="login"> Submit </button>
+            </div>
+        </div>
+    </template>
+    
+    <script>
+        export default {
+            data: function () {
+                return {
+                  name: "",
+                  username: "",
+                  password: "",
+                }
+            },
+            methods: {
+                login: function() {
+                    // TODO: Authenticate the admin
+                    
+                    fetch('/create_user', {
+                        method: "POST",
+                        body: `name=${this.name}&user_id=${this.username}`,
+                        headers: {'Content-Type':'application/x-www-form-urlencoded'},
+                    })
+                        .then( (response) => {
+                            return response.json();
+                        })
+                        .then( (response) => {
+                            fetch(`/authenticate_user?user_id=${this.username}`, {
+                                method: "POST",
+                                headers: {'Content-Type':'application/x-www-form-urlencoded'},
+                            })
+                                .then( (response) => {
+                                    return response.json();
+                                })
+                                .then( (response) => {
+                                    this.$emit("authenticated", this.username);
+                                });
+                        });
+                }
+            }
+        }
+    </script>
+    
+    <style scoped> 
+        input[type="text"] {
+            padding: 10px 8px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-size: 16px;
+            border: 1px solid darkgray;
+        }
+        .submit {
+            margin-top: 9px;
+            padding: 20px;
+            background: rgb(99, 99, 212);
+            color: white;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+        .login-wrapper {
+            width: 500px;
+            border: 1px solid #cccccc;
+            background-color: #ffffff;
+            margin: auto;
+            margin-top: 200px;
+            padding: 20px;
+        }
+        .login-form {
+            display: grid; 
+            height: 100%;
+            overflow: hidden !important;
+        }
+    </style>
+```
+
+### The Messages.vue component
+
+Add the below code to the `components/admin/Messages.vue` to render messages and an input to send a message:
+
+```html
+    <template> 
+        <div class="message-area">
+            <div id="messages">
+                <div
+                    class="chat-message" 
+                    v-for="message in messages" 
+                    v-bind:key="message.id"
+                    v-bind:class="[(message.senderId != userId) ? 'from-client' : 'from-admin']"
+                >
+                    {{ message.text }}
+                </div>            
+            </div>
+        
+            <div class="fix-to-bottom">
+                <input 
+                  type="text" 
+                  class="chat-input" 
+                  placeholder="enter message..."
+                  v-model="message"
+                  v-on:keyup.enter="addMessage"
+                >
+            </div>
+        </div>
+    </template>
+    
+    <script>
+        export default {
+            props: {
+                messages: Array,
+                userId: String
+            },
+            data() {
+                return {
+                    message: ""
+                }
+            },
+            methods: {
+                addMessage() {
+                    this.$emit('new-message', this.message);
+                    this.message = "";
+                }
+            }
+        }
+    </script>
+    
+    <style>
+       .fix-to-bottom {
+           margin: 0px; 
+           bottom: 0; 
+           top: auto; 
+           position: fixed; 
+           z-index: 999999; 
+           width: 100%;
+       }
+       .message-area {
+         background-color: rgb(211, 211, 202);
+       }
+      #messages {
+        overflow-y: scroll;
+        width: 100%;
+      }
+      .chat-message {
+        width: 70%;
+        margin-bottom: 8px;
+        padding: 5px;
+      }
+      .from-admin {
+        background: rgb(48, 13, 79);
+        color: white;
+        float: right;
+      }
+      .from-client {
+        background: rgb(191, 202, 204);
+        color: rgb(39, 37, 37);
+        float: left;
+      }
+      .chat-input {
+          width: 100%; 
+          margin-bottom: 0px;
+      }
+    </style>
+```
+
+### The Rooms.vue component
+
+We'll show all the rooms to the left of the page. We have used the client email for the rooms name.
+
+Now, add the below code to the `assets/js/components/Rooms.vue` component to render the rooms component.
+
+```html
+    <template>
+        <div class="chats">
+            <div style="text-align: center"> Chats </div>
+            <div 
+               v-for="room in rooms" 
+               v-bind:key="room.id" 
+               class="chat"
+               v-on:click="showChat(room.id)"
+               v-bind:class="[(room.id == activeRoomId) ? 'active-chat' : '']"
+            >
+                {{ room.name }}
+            </div>
+        </div>
+    </template>
+    
+    <script>
+        export default {
+            props: {
+              rooms: Array
+            },
+            data: function () {
+                return {
+                  activeRoomId: null,
+                }
+            },
+            methods: {
+                showChat(roomId) {
+                    this.$emit('show-chat', roomId);
+                    this.activeRoomId = roomId;
+                }
+            }
+        }
+    </script>
+    
+    <style scoped> 
+       .chats {
+         background-color: #818e817a;
+       }
+       .chat {
+           width: 100%;
+           cursor: pointer;
+           background: floralwhite;
+           color:gray;
+           padding: 18px;
+           margin: 3px;
+       }
+       .active-chat {
+           border: 3px solid rgb(48, 13, 79);
+       }
+    </style>
+```
+
+### The admin Admin.vue component
+
+In this component, we'll require all the other components in the `admin` folder to build up the admin page. Add the below code to `asssets/js/components/Admin.js`:
+
+```html
+    <template>
+        <div>
+            <Login
+                v-if="!authenticated"
+                v-on:authenticated="setAuthenticated" 
+            />
+            <div v-else class="admin-wrapper">
+                <Rooms 
+                  :rooms="rooms" 
+                  v-on:show-chat="joinRoom"
+                />
+                <Messages  
+                    v-on:new-message="addMessage"
+                    :messages="messages"
+                    :userId="userId"
+                />
+            </div>
+        </div>
+    </template>
+    
+    <script>
+        import Messages from './admin/Messages.vue';
+        import Login from './admin/Login.vue';
+        import Rooms from './admin/Rooms.vue'
+        import { ChatManager, TokenProvider } from '@pusher/chatkit-client';
+        
+        let currentUser = null;
+        
+        export default {
+            components: {
+               Messages,
+               Login,
+               Rooms
+            },
+            data: function () {
+                return {
+                  authenticated: false,
+                  roomId: "",
+                  messages: [],
+                  userId: "",
+                  rooms: []
+                }
+            },
+            mounted() {
+                console.log('Component mounted.');
+            },
+            methods: {
+                setAuthenticated(userId) {
+                
+                    chatManager = new ChatManager({
+                        instanceLocator: 'v1:us1:144f4947-500f-4938-acb4-f4b4b339765e',
+                        userId: userId,
+                        tokenProvider: new TokenProvider({
+                            url: 'http://127.0.0.1:8000/authenticate_user',
+                        })
+                    });
+                    
+                    chatManager.connect()
+                        .then(currentUser => {
+                            currentUserd = currentUser
+                             
+                            this.userId = userId;
+                            // Get rooms
+                            this.getRooms();
+                            this.authenticated = true;
+                        })
+                        .catch(err => {
+                            console.log('Error on connection', err)
+                        })
+                },
+            }
+        }
+    </script>
+    
+    <style> 
+      .admin-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        height: 100vh;
+        width: 100vw;
+        position: absolute;
+        overflow: hidden !important;
+       }
+    </style>
+```
+
+In the template section, as you see, we required the three component for the admin which we created ealier - Login.vue, Messages.vue and Rooms.vue. In the `<Login ...` component, we check if the `authenticated` state is set to false so we can render the Login form. We'll render the chat area which constitues of the `Login.vue` and the `Rooms.vue` component if it is set to true.
+
+Next add a function to get all rooms created so we can display it to the side of the page. Add the below code that will handle that to the methods: {...}` block in the `assets/js/components/Admin.vue` file:
+
+```javascript
+    // assets/js/components/Admin.vue
+    
+    [...]
+                getRooms() {
+                    fetch(`/get_rooms`)
+                        .then( (response) => {
+                            return response.json();
+                        })
+                        .then( (response) => {
+                            if (response.status == 200) {
+                                this.rooms = response.body;
+                            }
+                        });
+                },
+    [...]
+```
+
+On successful request to the `/get_rooms` endpoint, we update the `this.rooms` state with the rooms we got from the request repsonse so it is renderd by the `Rooms.vue` component.
+
+Once the admin click on any room, we add them to the room. Add the below code that will handle that to the methods: {...}` block in the  `assets/js/components/Admin.vue` file:
+
+```javascript
+    // assets/js/components/Admin.vue
+    
+    [...]
+                joinRoom(roomId) {
+                    currentUser.joinRoom({ roomId: roomId })
+                        .then(room => {
+                            console.log(`Joined room with ID: ${roomId}`);
+                            // Clear the message
+                            this.messages = [];
+                            this.roomId = roomId;
+                        })
+                        .catch(err => {
+                            console.log(`Error joining room : ${err}`);
+                        })
+    [...]
+```
+
+Next, we subscribe them to the room. Add the below code to the `methods: {...}` block in `assets/js/components/Admin.vue`:
+
+```javascript
+    // assets/js/components/Admin.vue
+    
+    [...]
+    
+                    // Subscribe to the room
+                    currentUser.subscribeToRoom({
+                        roomId: roomId,
+                        hooks: {
+                            onMessage: message => {
+                                console.log(`Received new message ${message}`);
+                                // add the current messages state if the message is sent
+                                // to the active room
+                                if (message.roomId == this.roomId) {
+                                    this.messages.push(message);
+                                }
+                            }
+                        },
+                            messageLimit: 10
+                        })
+                },
+    [...]
+```
+
+## Testing the app
+
+Congrats.
+
+## Conclusion
+
+In this tutorial, we explored building chat app using ChatKit. We only used some of the ChatKit fearure for the app, you can add a feature for online presense, sending attachments and many other chat app features. To see the complete feature that ChatKit offers, check out the documentation [here](https://docs.pusher.com/chatkit/reference/javascript).
+
+You can also grab the code for this project on GitHub.
+

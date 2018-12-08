@@ -1,0 +1,169 @@
+7/4/18, 11:46 AM - Chidiebere: Good
+7/4/18, 2:13 PM - Chidiebere: So where are we on the development?
+7/4/18, 5:14 PM - Wordpress Plugin: I just started. I will be asking some few questions regarding the project soonest
+7/5/18, 10:47 AM - Chidiebere: Good, be expecting that
+7/5/18, 3:53 PM - Wordpress Plugin: Hello @Steve. C ,
+
+Seems you did not send the pdf file containing the data. I could not find it.
+7/5/18, 3:59 PM - Chidiebere: The pdf data are for eãćh individual firm.
+7/5/18, 4:01 PM - Chidiebere: I.e each firm has a pdf data. There is one link for all the pdf data
+7/5/18, 4:01 PM - Chidiebere: A faster way will be to get the API if possible for the data source
+7/5/18, 4:02 PM - Chidiebere: If not possible, We find another way to extract the data from thw pdf
+7/5/18, 4:03 PM - Wordpress Plugin: If the API is available, then that's best.
+7/5/18, 4:04 PM - Wordpress Plugin: ok
+7/5/18, 4:04 PM - Chidiebere: We have to find out
+7/5/18, 4:05 PM - Wordpress Plugin: ok
+7/5/18, 4:05 PM - Wordpress Plugin: Do you have the link to the pdf
+7/5/18, 4:05 PM - Chidiebere: The essence of the doc i sent was to get an overview of the work. The full details for the ratios and formula will be provided
+7/5/18, 4:06 PM - Wordpress Plugin: ok.
+7/5/18, 4:07 PM - Wordpress Plugin: Also, if you can provide me with the project aim, that will be helpful also. I have gone through the ppt
+7/5/18, 4:08 PM - Chidiebere: The link to the pdf for a particular firm access bank: http://www.nse.com.ng/Financial_NewsDocs/21936_ACCESS_BANK_PLC._FINANCIAL_STATEMENTS_APRIL_2018.pdf
+7/5/18, 4:09 PM - Chidiebere: The main data source for all: http://www.nse.com.ng/
+7/5/18, 4:10 PM - Chidiebere: Thats the home page
+7/5/18, 4:12 PM - Chidiebere: The essence of the project is to provide an analysis of relevant data( ratios and analysis) for investors.  The data provided is in raw form and require an analysis to make it relevant.
+7/5/18, 4:12 PM - Chidiebere: That is what this platform aims to do
+7/5/18, 4:14 PM - Chidiebere: In addition, it tries to bring together all the relevant info from different sources to an investor.
+7/5/18, 4:15 PM - Wordpress Plugin: ok, got it
+7/5/18, 4:15 PM - Chidiebere: There is a section for investirs preference where a viewer will select his preference based on available option and the particular selection will be displayed
+7/5/18, 4:15 PM - Chidiebere: Ok good
+7/5/18, 5:07 PM - Chidiebere: I did a google search for Nigerian stock exchange API, found some links not sure if it reliable
+7/5/18, 5:07 PM - Chidiebere: @2348059794251 , u can check and see if u can find anything reasonable
+7/5/18, 5:08 PM - Calveen: Yeah. I think we can use the API to pull data from the sites. 
+
+@2348059794251 what do you think?
+7/5/18, 5:09 PM - Chidiebere: I found some things on this link: https://www.nigerianelite.com/help
+7/5/18, 6:31 PM - Wordpress Plugin: Nice. the one I found was broken. I'm still searching tho
+7/5/18, 6:31 PM - Wordpress Plugin: wow. nice. checking it out
+7/5/18, 6:33 PM - Wordpress Plugin: yeah. positive.
+7/5/18, 6:37 PM - Chidiebere: I found where NSE are selling the API: http://marketdataapi.nse.com.ng/Home/Docs
+7/5/18, 6:37 PM - Chidiebere: I think the difference between NSE API which they are selling and others we might find is that NSE API is live data, delayed by 20 mins max
+7/5/18, 6:37 PM - Chidiebere: Unlike some others that are 24 hours delayed
+7/5/18, 6:39 PM - Chidiebere: To clarify some data: There are 2 types of data, one is daily stock prices which are also needed and the other has to do with the ratios which are are in PDF
+7/5/18, 6:41 PM - Chidiebere: The daily stock prices are reported daily and the other ones in PDF are reported monthly/quarterly
+7/6/18, 3:35 PM - Wordpress Plugin: ok
+7/6/18, 3:36 PM - Wordpress Plugin: Yeah, for the max. But the NSE API are more rich in content and the data is more confident.
+7/6/18, 3:37 PM - Wordpress Plugin: I have really dig deep. 
+
+The only promising one which is https://www.nigerianelite.com/help does not work. The endpoint for stock does not return anything. 
+
+I am not too familiar with the stock market, but I have read wide 🙂.
+
+If you know where this stocks information are being displayed on any website, maybe we can scrape it ourselves.
+7/6/18, 3:53 PM - Chidiebere: The only reliable source is nse website
+7/6/18, 3:53 PM - Chidiebere: nse.com.ng
+7/6/18, 3:54 PM - Chidiebere: Maybe we can see how much they are selling the API
+7/6/18, 3:55 PM - Wordpress Plugin: ok
+7/6/18, 3:55 PM - Wordpress Plugin: yeah
+7/9/18, 12:36 PM - Chidiebere: Morning guys
+7/9/18, 12:36 PM - Chidiebere: Whats the update with the API, any development?
+7/9/18, 12:36 PM - Chidiebere: Or are we web scrapping
+7/9/18, 1:03 PM - Wordpress Plugin: I sent them message regarding the API on saturday. I'm still expecting their reply.  Otherwise we'd web scrape
+7/9/18, 1:09 PM - Chidiebere: Ok
+7/10/18, 2:27 AM - Wordpress Plugin: Please @Steve. C 
+check this page if an example of the information for the daily stock is included here:http://www.nse.com.ng/Issuers-section/listed-securities/etp-details?symbol=NEWGOLD
+http://www.nse.com.ng/Issuers-section/listed-securities/company-details?symbol=AFROMEDIA
+7/10/18, 7:52 AM - Chidiebere: The security listed theres is gold
+7/10/18, 7:53 AM - Chidiebere: And not stock
+7/10/18, 7:59 AM - Chidiebere: Yea its showing
+7/10/18, 8:02 AM - Chidiebere: The moving line shows stock prices but the info displayed on the page  shows a particular firm trading gold price
+7/10/18, 9:15 AM - Wordpress Plugin: Yeah, I have the API for the moving line also
+7/10/18, 9:48 AM - Chidiebere: Ok. Good
+7/10/18, 9:51 AM - Chidiebere: How did u  later get  the API
+7/10/18, 9:51 AM - Wordpress Plugin: It's embedded on their website
+7/10/18, 9:52 AM - Chidiebere: Nice job
+7/10/18, 10:04 AM - Wordpress Plugin: thanks
+7/10/18, 2:36 PM - Wordpress Plugin: <Media omitted>
+7/10/18, 2:41 PM - Wordpress Plugin: Sorry
+7/10/18, 2:56 PM - Chidiebere: Ok, thought as much. No wahala
+7/12/18, 12:10 PM - Chidiebere: Any update?
+7/12/18, 1:15 PM - Wordpress Plugin: Yeah, work is in progress. I'm currently working on the user interface
+7/12/18, 1:21 PM - Wordpress Plugin: We will need your ratios soon
+7/12/18, 1:29 PM - Chidiebere: Good
+7/12/18, 1:29 PM - Chidiebere: 👍
+7/14/18, 9:10 PM - Calveen: Hello People, 
+
+
+How it going @2348059794251 ?
+
+Where are we currently?  Any challenges?
+7/15/18, 10:17 PM - Wordpress Plugin: Hello
+7/15/18, 10:17 PM - Wordpress Plugin: Sorry was travelking
+7/15/18, 10:18 PM - Wordpress Plugin: The challenge now is getting the PDF to a cavity format
+7/16/18, 11:48 AM - Calveen: How do we tackle this? 
+
+
+Any options?
+7/16/18, 12:08 PM - Chidiebere: Maybe we can do a little research or check developers forum like github or libraries of prog languages
+7/18/18, 3:12 PM - Chidiebere: Any progress on this?
+7/18/18, 5:48 PM - Wordpress Plugin: I haven't really looked into it
+7/18/18, 5:48 PM - Wordpress Plugin: Started exams on 16th, so I'm kinda tied
+7/18/18, 7:24 PM - Chidiebere: Ok
+7/19/18, 9:27 AM - Calveen: When will you be done with exams?
+7/19/18, 9:54 AM - Wordpress Plugin: next week
+7/19/18, 11:05 AM - Calveen: Alright,  Goodluck in your exams bro. All the best
+7/19/18, 11:05 AM - Calveen: Let's try to round up the project before end of month,  ideally after your exams so we move on to next projects.
+7/19/18, 12:44 PM - Wordpress Plugin: alright
+7/25/18, 2:48 PM - Calveen: Hello @2348059794251 
+
+
+How is your exam going?  Any specific date we could resume work please
+7/25/18, 5:22 PM - Wordpress Plugin: I'm finishing exam this friday
+7/25/18, 5:22 PM - Wordpress Plugin: 20th
+7/25/18, 5:22 PM - Wordpress Plugin: So will be travelling back this Saturday
+7/25/18, 5:22 PM - Wordpress Plugin: 28th
+7/25/18, 5:23 PM - Wordpress Plugin: I will resume by Monday or Tuesday next week
+7/25/18, 5:31 PM - Calveen: Alright,  keep us posted. 
+
+Let's see if we can finish up the project latest first week of August
+7/25/18, 5:31 PM - Calveen: All the best in your exams bro
+7/27/18, 1:00 PM - Chidiebere: @2348059794251 success in your exams.
+Remember work awaits and this time u may need to work twice the rate u were working before to meet up
+7/27/18, 3:49 PM - Wordpress Plugin: Ok
+7/27/18, 3:49 PM - Wordpress Plugin: Thanks all
+8/1/18, 11:29 AM - Calveen: Hello @2348059794251 
+
+
+Happy new month and I hope you are fine.
+
+How was your exams ?
+8/1/18, 11:30 AM - Calveen: I believe you are through with your exams already.
+
+Where are welcome currently in the project ? Can you send us a link to check the progress and when can we officially complete this project?
+8/1/18, 12:59 PM - Wordpress Plugin: hi,  thanks
+8/1/18, 12:59 PM - Wordpress Plugin: Yeah, it's currently on my local
+8/1/18, 1:00 PM - Wordpress Plugin: I can do ngrok if you want
+8/1/18, 1:37 PM - Calveen: Maybe that could work.
+
+I just want us to feedback what has already been done and finalise the project ASAP
+8/1/18, 6:06 PM - Chidiebere: So how do we go about this or is there another way?
+8/1/18, 9:49 PM - Wordpress Plugin: I will upload to a server
+8/2/18, 10:22 AM - Wordpress Plugin: I got it to heroku: https://investng.herokuapp.com/
+8/3/18, 9:13 PM - Calveen: @2348036476757 
+
+Have you seen this yet?
+Am not sure if it is me, but it looks quite empty still in terms of content
+8/4/18, 9:50 AM - Chidiebere: Yes, I didn't  see much done other than a few empty tabs.
+8/4/18, 9:51 AM - Chidiebere: Overall structure is still lacking
+8/5/18, 9:01 AM - Wordpress Plugin: If you are on mobile you won't see much as I'm yet to make the mobile work well
+8/5/18, 9:01 AM - Wordpress Plugin: <Media omitted>
+8/5/18, 9:03 AM - Wordpress Plugin: This is the company page, I don't know if that's how it's meant to be
+8/5/18, 9:03 AM - Wordpress Plugin: things are happening on the back that is not yet visible yet
+8/5/18, 4:56 PM - Chidiebere: Ok
+8/7/18, 10:52 AM - Chidiebere: What else has been done, where are we exactly?
+8/7/18, 10:53 AM - Chidiebere: I was hoping the UI/UX has been done
+8/7/18, 10:53 AM - Chidiebere: Am just concerned that there are a lot of work still to be done on this
+8/7/18, 10:55 AM - Chidiebere: And we have spent a month on this project already
+8/7/18, 11:51 AM - Wordpress Plugin: I think most of the UI is done, although might need more touch,  but will be later.
+8/7/18, 11:53 AM - Wordpress Plugin: Things that has been done. 
+- listing sectors
+- from sectors, users can view cimpany
+- The from the company page,  users can view details of that company
+8/7/18, 11:54 AM - Wordpress Plugin: The other thing that is remains is knowing where each data will be going to in the views which I wanted to ask
+8/7/18, 11:55 AM - Wordpress Plugin: Most especially on the landing page
+8/10/18, 11:23 AM - Chidiebere: For this, its not just only the information from the NSE website, the ratios are to be shown ( for the company).
+8/10/18, 11:25 AM - Chidiebere: For the industry and subsector, there should be a trend analysis of the the stock prices. ( Although this are from the NSE prices, the only thing that will change is just the display
+8/10/18, 11:27 AM - Chidiebere: Can we have a discussion on this. Seems just typing it isn't passing the info across very well
+8/10/18, 11:57 AM - Calveen: This could work better. 
+
+
+@2348059794251 You are in Lagos right? 
