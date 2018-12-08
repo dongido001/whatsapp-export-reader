@@ -7,7 +7,7 @@
 
 If you have ever wanted to read an exported WhatsApp chat messages, then this app is for you.
 
-The live URL of the project can be found here (Link coming soon). You just need to upload your `.txt` file and read your message.
+The live URL of the project can be found [here](https://whapp-reader.herokuapp.com/). You just need to upload your `.txt` file and read your message.
 
 # Why
 
