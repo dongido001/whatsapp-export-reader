@@ -11,7 +11,7 @@ The live URL of the project can be found [here](https://whapp-reader.herokuapp.c
 
 # Why
 
-I was added to a WhatsApp group for communication for a job. I came in late, the conversation was already on for some days. Now you know in WhatsApp, there is no feature where you can read messages that were added before you joined the group. I wanted to catch up with the discussion, so I asked the Admin to help me export the messages so I can read the previous conversation. I made simple UI where I can upload the exported file and read it comfortably. And here it is!
+I was added to a WhatsApp group but I came in late, the conversation was already going on for some days. Now you know in WhatsApp, you can't read messages that were added before you joined the group. I wanted to catch up with the discussion, so I asked the Admin to help me export the messages so I can read the previous conversation. I made a simple UI where I can upload the exported file and read it comfortably. And here it is!
 
 
 # Contribute
